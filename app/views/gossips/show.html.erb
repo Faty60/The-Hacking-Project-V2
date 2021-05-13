@@ -1,0 +1,38 @@
+<style type="text/css">
+  .content {
+    font-style: italic;
+    border-radius: 10px !important;
+    text-indent: 12px !important;
+    width: auto !important;
+    padding: 0px 8px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    font: bold 11px / 20px &quot;Helvetica Neue&quot;, Helvetica, sans-serif !important;
+    --color: rgb(255, 255, 255) !important;
+    }
+</style>
+
+<% if !@gossip_hash['gossip'].nil? %>
+  <h1>Voici la page du potin n°<%= @gossip_hash['index'] %></h1>
+  <div>
+    <p class="author">Son auteur : <em><%= link_to "#{@gossip_hash['gossip'].author.first_name} #{@gossip_hash['gossip'].author.last_name}", user_path(@gossip_hash['gossip'].author.id) %></em></p>
+    <p>Son titre : <%= @gossip_hash['gossip'].title %></p>
+    <p>Le contenu du potin : <p class="content"><%= @gossip_hash['gossip'].content %></p></p>
+    <p>La date de création du potin : <%= @gossip_hash['gossip'].created_at %></p>
+    <p>La date de dernière modification du potin : <%= @gossip_hash['gossip'].updated_at %></p>
+    <br />
+    <p>
+      <a href="<%= edit_gossip_path(@gossip_hash['index']) %>" class="btn btn-primary btn-sm" role="button">Modifier le potin</a><span>
+      <a href="<%= gossip_path(@gossip_hash['index']) %>" class="btn btn-danger btn-sm" role="button" data-confirm="Êtes-vous certain de vouloir supprimer définitivement ce potin?" data-method="DELETE">Supprimer le potin</a>
+    </p>
+  </div>
+<% else %>
+  <div class="alert alert-danger" role="alert">
+    <p>Aucun potin de n°<%= @gossip_hash['index'] %> n'existe dans la base!</p>
+  </div>
+<% end %>
+<div>
+  <p>
+    <a href="<%= gossips_path %>" class="btn btn-primary btn-sm" role="button">Revenir à la liste des potins</a>
+  </p>
+</div>
